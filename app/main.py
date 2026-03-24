@@ -1,4 +1,3 @@
-from __future__ import annotations
 from app.cinema.bar import CinemaBar
 from app.cinema.hall import CinemaHall
 from app.people.customer import Customer
@@ -13,13 +12,16 @@ def cinema_visit(
 ) -> None:
     customer_objects = []
 
-    for cust in customers:
-        customer_obj = Customer(name=cust["name"], food=cust["food"])
+    for customer_data in customers:
+        customer_obj = Customer(
+            name=customer_data["name"],
+            food=customer_data["food"]
+        )
         customer_objects.append(customer_obj)
 
         CinemaBar.sell_product(
-            customer=customer_obj,
-            product=customer_obj.food
+            product=customer_obj.food,
+            customer=customer_obj
         )
 
     hall = CinemaHall(hall_number)
@@ -30,4 +32,3 @@ def cinema_visit(
         customers=customer_objects,
         cleaning_staff=cleaning_staff
     )
-
